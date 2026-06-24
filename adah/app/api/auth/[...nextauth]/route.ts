@@ -140,9 +140,9 @@ export const authOptions: NextAuthOptions = {
                 developer_token: process.env.GOOGLE_ADS_DEVELOPER_TOKEN || "",
               })
               const customers = await api.listAccessibleCustomers(account.refresh_token)
-              if (customers && customers.length > 0) {
+              if (customers && customers.resource_names && customers.resource_names.length > 0) {
                 // Parse the first customer ID (e.g. 'customers/1234567890')
-                customerId = customers[0].split("/")[1]
+                customerId = customers.resource_names[0].split("/")[1]
                 console.log("NextAuth dynamically resolved customerId from google account:", customerId)
               }
             } catch (err: any) {
