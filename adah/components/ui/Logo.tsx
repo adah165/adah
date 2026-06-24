@@ -13,48 +13,14 @@ interface LogoProps {
 
 export function LogoIcon({ className, size = 40 }: { className?: string; size?: number }) {
   return (
-    <svg
-      viewBox="40 20 146 146"
+    <img
+      src="/logo.png"
+      alt="أداة"
       className={className}
       width={size}
       height={size}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Blue shape (Right leg, Left leg top, and Apex - Main Arch) */}
-      <path
-        d="M 68 145 C 68 100 80 45 109 45 C 138 45 132 100 132 145"
-        stroke="#75b5e9"
-        strokeWidth="22"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Green Arrow Stem */}
-      <path
-        d="M 117 83 L 145 55"
-        stroke="#86d7ab"
-        strokeWidth="22"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Green Arrow Head (Chevron pointing up-right) */}
-      <path
-        d="M 165 35 L 130 40 L 145 55 L 160 70 Z"
-        fill="#86d7ab"
-        stroke="#86d7ab"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Green shape (Left leg bottom & crossing ribbon) */}
-      <path
-        d="M 68 145 C 68 120 74 95 105 95 C 123 95 133 108 146 118"
-        stroke="#86d7ab"
-        strokeWidth="22"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      style={{ objectFit: "contain" }}
+    />
   )
 }
 

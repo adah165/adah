@@ -97,7 +97,7 @@ export async function PUT(request: Request) {
             Authorization: `Bearer ${resendKey}`,
           },
           body: JSON.stringify({
-            from: "Acme <onboarding@resend.dev>",
+            from: process.env.EMAIL_FROM || "Acme <onboarding@resend.dev>",
             to: email,
             subject: "رمز التحقق الجديد الخاص بك — منصة أداة",
             html: `
