@@ -74,7 +74,7 @@ export async function POST(request: Request) {
           historical_metrics_options: {
             include_average_cpc: false,
           },
-        })
+        } as any)
 
         const results = Array.isArray(response) ? response : (response as any).results || []
         if (results && results.length > 0) {
