@@ -1,0 +1,54 @@
+<svg
+  viewBox="0 0 200 240"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {/* Bounding group for the icon, shifted slightly to center horizontally */}
+  <g transform="translate(10, 15)">
+    {/* Blue shape (Right leg, Left leg top, and Apex - Main Arch) */}
+    <path
+      d="M 68 145 C 68 100 80 45 109 45 C 138 45 132 100 132 145"
+      stroke="#75b5e9"
+      stroke-width="22"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    {/* Green Arrow Stem */}
+    <path
+      d="M 117 83 L 145 55"
+      stroke="#86d7ab"
+      stroke-width="22"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    {/* Green Arrow Head (Chevron pointing up-right) */}
+    <path
+      d="M 165 35 L 130 40 L 145 55 L 160 70 Z"
+      fill="#86d7ab"
+      stroke="#86d7ab"
+      stroke-width="6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    {/* Green shape (Left leg bottom & crossing ribbon) */}
+    <path
+      d="M 68 145 C 68 120 74 95 105 95 C 123 95 133 108 146 118"
+      stroke="#86d7ab"
+      stroke-width="22"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  {/* Text "Adah" at the bottom */}
+  <text
+    x="100"
+    y="215"
+    text-anchor="middle"
+    fill="#75b5e9"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-weight="bold"
+    font-size="34"
+    letter-spacing="0.5"
+  >Adah</text>
+</svg>

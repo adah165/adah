@@ -1,0 +1,123 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  jobTitle      String?
+  otpCode       String?
+  otpExpires    DateTime?
+  createdAt     DateTime  @default(now())
+  accounts      Account[]
+  sessions      Session[]
+  workspaces    WorkspaceMember[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Workspace {
+  id             String             @id @default(cuid())
+  name           String
+  createdAt      DateTime           @default(now())
+  members        WorkspaceMember[]
+  googleAccounts GoogleAdsAccount[]
+  campaigns      Campaign[]
+  fraudLogs      FraudLog[]
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  role        String    @default("VIEWER") // Using string due to SQLite enum support (or SQLite can use enum if we simulate, but text is safer in SQLite)
+  userId      String
+  workspaceId String
+  user        User      @relation(fields: [userId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model GoogleAdsAccount {
+  id           String     @id @default(cuid())
+  customerId   String     // Google Ads customer ID
+  name         String
+  accessToken  String
+  refreshToken String
+  workspaceId  String
+  workspace    Workspace  @relation(fields: [workspaceId], references: [id])
+  campaigns    Campaign[]
+  createdAt    DateTime   @default(now())
+}
+
+model Campaign {
+  id                 String           @id @default(cuid())
+  googleCampaignId   String           // ID from Google Ads
+  name               String
+  status             String           @default("ENABLED")
+  budget             Float
+  budgetType         String           @default("DAILY")
+  startDate          DateTime
+  endDate            DateTime?
+  campaignType       String
+  workspaceId        String
+  googleAccountId    String
+  bidStrategy        String?
+  targetLocations    String?          // JSON-serialized string of targeted locations
+  keywords           String?          // JSON-serialized string of keywords
+  headlines          String?          // JSON-serialized string of headlines
+  descriptions       String?          // JSON-serialized string of descriptions
+  finalUrl           String?
+  workspace          Workspace        @relation(fields: [workspaceId], references: [id])
+  googleAccount      GoogleAdsAccount @relation(fields: [googleAccountId], references: [id])
+  fraudLogs          FraudLog[]
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+}
+
+model FraudLog {
+  id            String    @id @default(cuid())
+  ipAddress     String
+  clickCount    Int
+  reason        String
+  confidence    Int       // 0-100
+  action        String    // "blocked" | "reviewed" | "ignored"
+  estimatedLoss Float
+  campaignId    String
+  workspaceId   String
+  campaign      Campaign  @relation(fields: [campaignId], references: [id])
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  detectedAt    DateTime  @default(now())
+}
