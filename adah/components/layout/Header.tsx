@@ -129,10 +129,11 @@ export function Header() {
 
   // Initialize edit form when modal opens
   useEffect(() => {
-    if (modalOpen && session?.user) {
-      setEditName(session.user.name || "")
-      setEditJobTitle((session.user as any).jobTitle || "")
-      setEditImage(session.user.image || "")
+    const user = session?.user
+    if (modalOpen && user) {
+      setEditName(user.name || "")
+      setEditJobTitle((user as any).jobTitle || "")
+      setEditImage(user.image || "")
       setEditPassword("")
       setErrorMsg("")
       setSuccessMsg("")
@@ -141,10 +142,11 @@ export function Header() {
 
   // Sync display states when session changes/loads
   useEffect(() => {
-    if (session?.user) {
-      setUserName(session.user.name || "")
-      setUserJobTitle((session.user as any).jobTitle || "")
-      setUserImage(session.user.image || "")
+    const user = session?.user
+    if (user) {
+      setUserName(user.name || "")
+      setUserJobTitle((user as any).jobTitle || "")
+      setUserImage(user.image || "")
     }
   }, [session])
 
@@ -396,7 +398,7 @@ export function Header() {
                   <div className="p-4 border-b border-border bg-muted/20 flex flex-col items-center text-center">
                     <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center overflow-hidden border-2 border-primary/20 mb-3 shadow-inner">
                       {userImage || session?.user?.image ? (
-                        <img src={userImage || session.user.image} alt={userName || session.user.name || "User"} className="w-full h-full object-cover" />
+                        <img src={userImage || session?.user?.image || undefined} alt={userName || session?.user?.name || "User"} className="w-full h-full object-cover" />
                       ) : (
                         <User className="w-8 h-8" />
                       )}
