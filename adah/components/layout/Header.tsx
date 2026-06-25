@@ -15,11 +15,11 @@ export function Header() {
   const [customerId, setCustomerId] = useState("١٢٣-٤٥٦-٧٨٩٠")
   const [notificationsOpen, setNotificationsOpen] = useState(false)
   const [alerts, setAlerts] = useState([
-    { 
-      id: 1, 
-      title: "تم اكتشاف نقرات مشبوهة", 
-      desc: "نظام الحماية رصد ١٢ نقرة مكررة من IP: 192.168.1.145", 
-      time: "قبل ٥ دقائق", 
+    {
+      id: 1,
+      title: "تم اكتشاف نقرات مشبوهة",
+      desc: "نظام الحماية رصد ١٢ نقرة مكررة من IP: 192.168.1.145",
+      time: "قبل ٥ دقائق",
       type: "error",
       actionType: "block_ip",
       ipAddress: "192.168.1.145",
@@ -27,22 +27,22 @@ export function Header() {
       status: "idle",
       link: "/analytics"
     },
-    { 
-      id: 2, 
-      title: "تحسين ميزانية الحملة", 
-      desc: "AI يقترح زيادة ميزانية حملة رمضان بنسبة ١٥٪ لتحسين العائد", 
-      time: "قبل ساعة", 
+    {
+      id: 2,
+      title: "تحسين ميزانية الحملة",
+      desc: "AI يقترح زيادة ميزانية حملة رمضان بنسبة ١٥٪ لتحسين العائد",
+      time: "قبل ساعة",
       type: "success",
       actionType: "approve_budget",
       actionText: "موافقة وتطبيق",
       status: "idle",
       link: "/campaigns"
     },
-    { 
-      id: 3, 
-      title: "تنبيه إيقاف الكلمات المفتاحية", 
-      desc: "كلمة 'شراء منتجات' لها تكلفة عالية ونسبة تحويل منخفضة", 
-      time: "قبل ٣ ساعات", 
+    {
+      id: 3,
+      title: "تنبيه إيقاف الكلمات المفتاحية",
+      desc: "كلمة 'شراء منتجات' لها تكلفة عالية ونسبة تحويل منخفضة",
+      time: "قبل ٣ ساعات",
       type: "warning",
       actionType: "disable_keyword",
       keyword: "شراء منتجات",
@@ -81,14 +81,14 @@ export function Header() {
       }
 
       if (res && res.ok) {
-        setAlerts(prev => prev.map(a => a.id === alertId ? { 
-          ...a, 
-          status: "success", 
-          desc: alert.actionType === "block_ip" 
-            ? `تم حظر الـ IP ${alert.ipAddress} بنجاح.` 
-            : alert.actionType === "approve_budget" 
-            ? `تمت زيادة الميزانية بنسبة ١٥٪ وتطبيقها.` 
-            : `تم إيقاف الكلمة المفتاحية '${alert.keyword}' بنجاح.` 
+        setAlerts(prev => prev.map(a => a.id === alertId ? {
+          ...a,
+          status: "success",
+          desc: alert.actionType === "block_ip"
+            ? `تم حظر الـ IP ${alert.ipAddress} بنجاح.`
+            : alert.actionType === "approve_budget"
+              ? `تمت زيادة الميزانية بنسبة ١٥٪ وتطبيقها.`
+              : `تم إيقاف الكلمة المفتاحية '${alert.keyword}' بنجاح.`
         } : a))
         router.refresh()
       } else {
@@ -202,7 +202,7 @@ export function Header() {
       })
 
       setSuccessMsg("تم تحديث الملف الشخصي بنجاح! 🎉")
-      
+
       // Trigger Next.js router refresh to reload Server Components / page states
       router.refresh()
 
@@ -226,7 +226,7 @@ export function Header() {
           setCustomerId(data.customerId)
         }
       })
-      .catch(() => {})
+      .catch(() => { })
   }, [])
 
   const handleToggleTheme = () => {
@@ -295,16 +295,16 @@ export function Header() {
                       </div>
                     ) : (
                       alerts.map((alert) => (
-                        <div 
-                          key={alert.id} 
+                        <div
+                          key={alert.id}
                           onClick={() => handleAlertClick(alert.link)}
                           className="p-4 border-b border-border hover:bg-muted/40 transition-colors flex gap-3 cursor-pointer text-right"
                         >
                           <div className={cn(
                             "w-8 h-8 rounded-lg shrink-0 flex items-center justify-center mt-0.5",
                             alert.type === "error" ? "bg-red-500/10 text-red-500" :
-                            alert.type === "warning" ? "bg-amber-500/10 text-amber-500" :
-                            "bg-emerald-500/10 text-emerald-500"
+                              alert.type === "warning" ? "bg-amber-500/10 text-amber-500" :
+                                "bg-emerald-500/10 text-emerald-500"
                           )}>
                             {alert.type === "error" ? <AlertCircle className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
                           </div>
@@ -314,7 +314,7 @@ export function Header() {
                             <div className="flex items-center justify-between mt-1">
                               <span className="text-[10px] text-muted-foreground">{alert.time}</span>
                             </div>
-                            
+
                             {alert.status !== "success" ? (
                               <button
                                 onClick={(e) => handleAlertAction(e, alert.id)}
@@ -323,22 +323,22 @@ export function Header() {
                                   alert.status === "loading"
                                     ? "bg-muted text-muted-foreground border-border cursor-not-allowed"
                                     : alert.status === "error"
-                                    ? "bg-red-500/10 text-red-500 border-red-500/30"
-                                    : alert.type === "error"
-                                    ? "bg-red-500/10 hover:bg-red-500 hover:text-white text-red-500 border-red-500/20 active:scale-95"
-                                    : alert.type === "warning"
-                                    ? "bg-amber-500/10 hover:bg-amber-500 hover:text-white text-amber-500 border-amber-500/20 active:scale-95"
-                                    : "bg-emerald-500/10 hover:bg-emerald-500 hover:text-white text-emerald-500 border-emerald-500/20 active:scale-95"
+                                      ? "bg-red-500/10 text-red-500 border-red-500/30"
+                                      : alert.type === "error"
+                                        ? "bg-red-500/10 hover:bg-red-500 hover:text-white text-red-500 border-red-500/20 active:scale-95"
+                                        : alert.type === "warning"
+                                          ? "bg-amber-500/10 hover:bg-amber-500 hover:text-white text-amber-500 border-amber-500/20 active:scale-95"
+                                          : "bg-emerald-500/10 hover:bg-emerald-500 hover:text-white text-emerald-500 border-emerald-500/20 active:scale-95"
                                 )}
                                 disabled={alert.status === "loading"}
                               >
                                 {alert.status === "loading" && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                                 <span>
-                                  {alert.status === "loading" 
-                                    ? "جاري المعالجة..." 
-                                    : alert.status === "error" 
-                                    ? "فشلت المحاولة" 
-                                    : alert.actionText}
+                                  {alert.status === "loading"
+                                    ? "جاري المعالجة..."
+                                    : alert.status === "error"
+                                      ? "فشلت المحاولة"
+                                      : alert.actionText}
                                 </span>
                               </button>
                             ) : (
@@ -373,7 +373,7 @@ export function Header() {
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary shrink-0 overflow-hidden border border-border">
                 {userImage || session?.user?.image ? (
-                  <img src={userImage || session.user.image || undefined} alt={userName || session.user.name || "User"} className="w-full h-full object-cover" />
+                  <img src={userImage || session?.user?.image || undefined} alt={userName || session?.user?.name || "User"} className=
                 ) : (
                   <User className="w-4 h-4" />
                 )}
@@ -396,7 +396,7 @@ export function Header() {
                   <div className="p-4 border-b border-border bg-muted/20 flex flex-col items-center text-center">
                     <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center overflow-hidden border-2 border-primary/20 mb-3 shadow-inner">
                       {userImage || session?.user?.image ? (
-                        <img src={userImage || session.user.image || undefined} alt={userName || session.user.name || "User"} className="w-full h-full object-cover" />
+                        <img src={userImage || session.user.image} alt={userName || session.user.name || "User"} className="w-full h-full object-cover" />
                       ) : (
                         <User className="w-8 h-8" />
                       )}
