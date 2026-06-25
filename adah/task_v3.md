@@ -6,3 +6,4 @@
 - `[x]` تهيئة متغير `EMAIL_FROM` في ملف الكود لخدمة التحقق `verify/route.ts`.
 - `[x]` إضافة المتغيرات وتحديث ملف `.env`.
 - `[x]` صياغة توجيهات الرفع عبر GitHub Desktop وإعدادات Vercel للمستخدم.
+- `[x]` إصلاح خطأ الـ Type Check في مسار `resolve-dns/route.ts`.

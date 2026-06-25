@@ -3,8 +3,8 @@ import dns from "dns"
 import fs from "fs"
 import path from "path"
 
-export async function GET() {
-  return new Promise((resolve) => {
+export async function GET(): Promise<NextResponse> {
+  return new Promise<NextResponse>((resolve) => {
     dns.resolveCname("db.zsjfagvmscmnxqycudqv.supabase.co", (err, addresses) => {
       const resultFile = path.join(process.cwd(), "dns_result.json")
       if (err) {
