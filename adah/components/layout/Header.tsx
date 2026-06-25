@@ -373,7 +373,7 @@ export function Header() {
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary shrink-0 overflow-hidden border border-border">
                 {userImage || session?.user?.image ? (
-                  <img src={userImage || session?.user?.image || undefined} alt={userName || session?.user?.name || "User"} className=
+                  <img src={userImage || session?.user?.image || undefined} alt={userName || session?.user?.name || "User"} className="w-full h-full object-cover" />
                 ) : (
                   <User className="w-4 h-4" />
                 )}
